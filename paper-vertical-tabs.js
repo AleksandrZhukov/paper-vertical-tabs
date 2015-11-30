@@ -6,7 +6,24 @@ Polymer({
   activateEvent: 'down',
   noStretch: false,
 
+  attached: function() {
+    var observer = new MutationObserver(function() {
+      this.drawBar();
+    }.bind(this));
+
+    for (var i = 0, l = this.nodes.length; i < l; i++) {
+      var node = this.nodes[i];
+      observer.observe(node, {attributes: true, attributeFilter: [this.excludedAttr]});
+    }
+  },
+
   selectedIndexChanged: function(old) {
+    this.drawBar();
+    if (this.noStretch || old === null || old === -1) { return; }
+    this.$.selectionBar.classList.add('expand');
+  },
+
+  drawBar: function() {
     var barStyle = this.$.selectionBar.style;
     var contentStyle = this.$.tabsContainer.style;
 
@@ -29,12 +46,6 @@ Polymer({
     else contentStyle.marginLeft = this.barWidth + 'px';
 
     barStyle.top = barHeight * this.selectedIndex + '%';
-
-    if (this.noStretch || old === null || old === -1) {
-      return;
-    }
-
-    this.$.selectionBar.classList.add('expand');
   }
 
 });
