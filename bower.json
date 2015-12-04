@@ -5,7 +5,7 @@
     "web-components"
   ],
   "dependencies": {
-    "core-selector": "AleksandrZhukov/core-selector#~0.5.7",
+    "core-selector": "AleksandrZhukov/core-selector#0.5.7-1",
     "paper-tabs": "Polymer/paper-tabs"
   }
 }
